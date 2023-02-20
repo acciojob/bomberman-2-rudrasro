@@ -14,7 +14,7 @@ const NUMBER_OF_MINES = 10;
 let counter = 0;
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
 const minesLeftText = document.querySelector('[data-mine-count]')
-const  messageText = document.querySelector('#result');
+const messageText = document.querySelector('#result');
 board.forEach(row => {
     row.forEach(tile => {
         boardElement.append(tile.element);
@@ -63,7 +63,11 @@ function revealTile(board, tile) {
     }
     if (tile.mine) {
         tile.status = TILE_STATUSES.MINE;
-        tile.element.classList.add('bomb')
+        tile.element.classList.add('bomb');
+        const userLose = document.querySelector('.bomb');
+        userLose.addEventListener('click', () => {
+            checkLose();
+        })
         tile.element.textContent = '💣';
         tile.element.style.fontSize = '50%';
         return;
@@ -71,10 +75,10 @@ function revealTile(board, tile) {
     tile.status = TILE_STATUSES.NUMBER;
     const adjacentTiles = nearbyTiles(board, tile);
     const mines = adjacentTiles.filter(t => t.mine);
-    if(mines.length === 0){
+    if (mines.length === 0) {
         adjacentTiles.forEach(revealTile.bind(null, board));
     }
-    else{
+    else {
         tile.element.textContent = mines.length;
     }
 }
@@ -143,26 +147,26 @@ function nearbyTiles(board, { x, y }) {
     return tiles;
 }
 
-function checkGameEnd(){
+function checkGameEnd() {
     const win = checkWin(board);
     const lose = checkLose(board);
-    if(win || lose){
-        boardElement.addEventListener('click', stopProp, {capture: true})
-        boardElement.addEventListener('contextmenu', stopProp, {capture: true})
+    if (win || lose) {
+        boardElement.addEventListener('click', stopProp, { capture: true })
+        boardElement.addEventListener('contextmenu', stopProp, { capture: true })
     }
-    if(win){
+    if (win) {
         messageText.textContent = "You Win!!"
         messageText.style.color = "green"
     }
-    if(lose){
+    if (lose) {
         messageText.innerHTML = "You Lose!!"
         messageText.style.color = "red"
         board.forEach(row => {
             row.filter(tile => {
-                if(tile.status === TILE_STATUSES.MARKED){
+                if (tile.status === TILE_STATUSES.MARKED) {
                     markTile(tile);
                 }
-                if(tile.mine){
+                if (tile.mine) {
                     revealTile(board, tile)
                 }
             })
@@ -170,22 +174,23 @@ function checkGameEnd(){
     }
 }
 
-function stopProp(e){
+function stopProp(e) {
     e.stopImmediatePropagation();
 
 }
 
-function checkWin(){
-    return board.every(row =>{
-        return row.every(tile =>{
+function checkWin() {
+    return board.every(row => {
+        return row.every(tile => {
             return tile.status === TILE_STATUSES.NUMBER || (tile.mine && (tile.status === TILE_STATUSES.HIDDEN || tile.status === TILE_STATUSES.MARKED));
         })
     })
 }
 
-function checkLose(){
+
+function checkLose() {
     return board.some(row => {
-        return row.some(tile =>{
+        return row.some(tile => {
             return tile.status === TILE_STATUSES.MINE;
         })
     })
