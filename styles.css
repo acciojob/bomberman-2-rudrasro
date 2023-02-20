@@ -1,19 +1,55 @@
-.grid-container {
-    margin: 20px;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    padding: 10px;
+*{
+    box-sizing: border-box;
 }
-.grid-item {
-    /* background-color: rgba(255, 255, 255, 0.5); */
-    background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
-}
-.flex-box{
+body {
+    margin: 0;
+    background-color: #333;
     display: flex;
     align-items: center;
+    font-size: 3rem;
+    flex-direction: column;
+    color: #ffffff;
+}
+.title{
+    margin: 20px;
+}
+#result{
+    font-size: 1.2rem;
+}
+#flagsLeft{
+    color: #ccc;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+#gameBoard{
+    display: inline-grid;
+    padding: 10px;
+    grid-template-columns: repeat(var(--size),40px);
+    grid-template-rows: repeat(var(--size),50px);
+    gap: 4px;
+    background-color: #777;
+}
+#gameBoard>*{
+    width: 100%;
+    height: 100%;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    border: 2px solid #888888;
+    user-select: none;
+}
+#gameBoard>[data-status="hidden"]{
+    background-color: #888;
+    cursor: pointer;
+}
+#gameBoard>[data-status="mine"]{
+    background-color: red;
+}
+#gameBoard>[data-status="number"]{
+    background-color: none;
+}
+#gameBoard>[data-status="marked"]{
+    background-color: #888;
+    color: red;
 }
