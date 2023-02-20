@@ -9,7 +9,7 @@ const TILE_STATUSES = {
     MARKED: 'marked',
 }
 
-const BOARD_SIZE = 10;
+const BOARD_SIZE = 9;
 const NUMBER_OF_MINES = 10;
 let counter = 0;
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
@@ -18,6 +18,7 @@ const  messageText = document.querySelector('#result');
 board.forEach(row => {
     row.forEach(tile => {
         boardElement.append(tile.element);
+        tile.element.classList.add('valid')
         tile.element.id = `${counter++}`;
         tile.element.addEventListener('click', () => {
             revealTile(board, tile);
@@ -62,6 +63,7 @@ function revealTile(board, tile) {
     }
     if (tile.mine) {
         tile.status = TILE_STATUSES.MINE;
+        tile.element.classList.add('bomb')
         tile.element.textContent = '💣';
         tile.element.style.fontSize = '50%';
         return;
