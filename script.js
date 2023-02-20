@@ -18,7 +18,6 @@ board.forEach(row => {
     row.forEach(tile => {
         boardElement.append(tile.element);
         tile.element.classList.add('valid');
-        tile.element.setAttribute('data', '0')
         tile.element.id = `${counter++}`;
         tile.element.addEventListener('click', () => {
             revealTile(board, tile);
@@ -84,6 +83,7 @@ function revealTile(board, tile) {
     const mines = adjacentTiles.filter(t => t.mine);
     if (mines.length === 0) {
         adjacentTiles.forEach(revealTile.bind(null, board));
+        tile.element.setAttribute('data', `${mines.length}`);
         tile.element.classList.add('checked');
     }
     else {
