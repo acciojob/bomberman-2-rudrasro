@@ -73,9 +73,11 @@ function revealTile(board, tile) {
     }
     if (tile.mine) {
         tile.status = TILE_STATUSES.MINE;
-
+        tile.element.classList.add('bomb');
+        tile.element.classList.remove('valid');
         tile.element.textContent = '💣';
         tile.element.style.fontSize = '50%';
+        tile.element.classList.add('checked');
         return;
     }
     tile.status = TILE_STATUSES.NUMBER;
@@ -112,8 +114,6 @@ function createBoard(boardSize, numberOfMines) {
                 },
                 set status(value) {
                     this.element.dataset.status = value;
-                    this.element.classList.add('bomb');
-                    tile.element.classList.remove('valid');
                 }
             }
             row.push(tile);
@@ -134,7 +134,6 @@ function getMinePositions(boardSize, numberOfMines) {
             positions.push(position);
         }
     }
-    console.log(positions)
     return positions;
 }
 
