@@ -8,6 +8,7 @@ const TILE_STATUSES = {
     NUMBER: 'number',
     MARKED: 'marked',
 }
+
 const BOARD_SIZE = 9;
 const NUMBER_OF_MINES = 10;
 let counter = 0;
@@ -16,6 +17,8 @@ const minesLeftText = document.querySelector('#flagsLeft')
 const messageText = document.querySelector('#result');
 const bombs = document.querySelector('#bomb');
 bombs.textContent = NUMBER_OF_MINES;
+
+//Settings
 board.forEach(row => {
     row.forEach(tile => {
         boardElement.append(tile.element);
@@ -38,6 +41,7 @@ let count = 1;
 let flagList = 0;
 minesLeftText.textContent = flagList
 
+// Count the mines
 function listMineLeft() {
     const markedTilesCount = board.reduce((count, row) => {
         return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length)
@@ -46,6 +50,7 @@ function listMineLeft() {
     count = markedTilesCount;
 }
 
+//Mark flag to the tiles
 function markTile(tile) {
     if (tile.status !== TILE_STATUSES.HIDDEN && tile.status !== TILE_STATUSES.MARKED) {
         return;
@@ -67,6 +72,7 @@ function markTile(tile) {
     }
 }
 
+//Reveal the tiles
 function revealTile(board, tile) {
     if (tile.status !== TILE_STATUSES.HIDDEN) {
         return;
@@ -96,6 +102,7 @@ function revealTile(board, tile) {
     }
 }
 
+//Creating a board for Bomberman 2
 function createBoard(boardSize, numberOfMines) {
     const board = [];
     const minePositions = getMinePositions(boardSize, numberOfMines);
@@ -123,6 +130,7 @@ function createBoard(boardSize, numberOfMines) {
     return board;
 }
 
+//Get bomb locations / positions
 function getMinePositions(boardSize, numberOfMines) {
     const positions = [];
     while (positions.length < numberOfMines) {
@@ -137,14 +145,17 @@ function getMinePositions(boardSize, numberOfMines) {
     return positions;
 }
 
+// Match the postions
 function positionMatch(a, b) {
     return a.x === b.x && a.y === b.y;
 }
 
+//create random numbers to place bombs
 function randomNumber(size) {
     return Math.floor(Math.random() * size);
 }
 
+//Find the nearby tiles of bombs
 function nearbyTiles(board, { x, y }) {
     const tiles = [];
 
@@ -159,15 +170,20 @@ function nearbyTiles(board, { x, y }) {
     return tiles;
 }
 
+// End Game
 function checkGameEnd() {
     const win = checkWin(board);
     const lose = checkLose(board);
+
+    // Win or loss: Stop the game
     if (win || lose) {
         boardElement.addEventListener('click', stopProp, { capture: true })
         boardElement.addEventListener('contextmenu', stopProp, { capture: true })
     }
+
+    //If win then display win
     if (win) {
-        messageText.style.display = 'block';
+        messageText.textContent = 'YOU WIN!';
         messageText.style.color = "green";
         board.forEach(row => {
             row.filter(tile => {
@@ -177,8 +193,10 @@ function checkGameEnd() {
             })
         })
     }
+
+    //If loose show all the bombs and display you lose
     if (lose) {
-        messageText.innerHTML = "YOU LOSE!"
+        messageText.textContent = "YOU LOSE!"
         messageText.style.color = "red";
 
         board.forEach(row => {
