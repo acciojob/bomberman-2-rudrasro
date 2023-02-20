@@ -82,7 +82,7 @@ function revealTile(board, tile) {
 function createBoard(boardSize, numberOfMines) {
     const board = [];
     const minePositions = getMinePositions(boardSize, numberOfMines);
-    for (let x = 0; x < boardSize; x++) {
+    for (let x = 0; x < 10; x++) {
         const row = [];
         for (let y = 0; y < boardSize; y++) {
             const element = document.createElement('div');
