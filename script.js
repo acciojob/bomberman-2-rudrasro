@@ -39,11 +39,11 @@ let flagList = 0;
 minesLeftText.textContent = flagList
 
 function listMineLeft() {
-        const markedTilesCount = board.reduce((count, row) => {
-            return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length)
-        }, 0);
-        minesLeftText.textContent = flagList + markedTilesCount;
-        count = markedTilesCount;
+    const markedTilesCount = board.reduce((count, row) => {
+        return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length)
+    }, 0);
+    minesLeftText.textContent = flagList + markedTilesCount;
+    count = markedTilesCount;
 }
 
 function markTile(tile) {
@@ -53,13 +53,12 @@ function markTile(tile) {
     if (tile.status === TILE_STATUSES.MARKED) {
         tile.status = TILE_STATUSES.HIDDEN;
         tile.element.textContent = '';
-        if(tile.element.classList.contains('flag')){
+        if (tile.element.classList.contains('flag')) {
             tile.element.classList.remove('flag');
         }
     }
     else {
-        if(count<10){
-            console.log(count)
+        if (count < 10) {
             tile.status = TILE_STATUSES.MARKED;
             tile.element.classList.add('flag');
             tile.element.textContent = '🚩';
@@ -74,8 +73,7 @@ function revealTile(board, tile) {
     }
     if (tile.mine) {
         tile.status = TILE_STATUSES.MINE;
-        tile.element.classList.add('bomb')
-        tile.element.classList.remove('valid')
+
         tile.element.textContent = '💣';
         tile.element.style.fontSize = '50%';
         return;
@@ -114,6 +112,8 @@ function createBoard(boardSize, numberOfMines) {
                 },
                 set status(value) {
                     this.element.dataset.status = value;
+                    this.element.classList.add('bomb');
+                    tile.element.classList.remove('valid');
                 }
             }
             row.push(tile);
@@ -134,6 +134,7 @@ function getMinePositions(boardSize, numberOfMines) {
             positions.push(position);
         }
     }
+    console.log(positions)
     return positions;
 }
 

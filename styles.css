@@ -6,21 +6,25 @@ body {
     background-color: #333;
     display: flex;
     align-items: center;
-    font-size: 3rem;
+    font-size: 2rem;
     flex-direction: column;
     color: #ffffff;
 }
 .title{
-    margin: 20px;
+    margin: 10px;
 }
 #result{
     font-size: 1.2rem;
-    padding: 1.5rem;
+    padding: 1rem;
     display: none;
 }
-.bomb{
-    font-size: 1.2rem;
+.showBomb{
+    display: flex;
+    font-size: 1.5rem;
+    width: 200px;
+    justify-content: space-between;
 }
+
 #flagsLeft{
     color: #ccc;
     font-size: 1.5rem;
@@ -28,9 +32,10 @@ body {
 }
 #gameBoard{
     display: inline-grid;
+    height: 72vh;
     padding: 10px;
-    grid-template-columns: repeat(var(--size),40px);
-    grid-template-rows: repeat(var(--size),50px);
+    grid-template-columns: repeat(var(--size),30px);
+    grid-template-rows: repeat(var(--size),40px);
     gap: 4px;
     background-color: #777;
 }
