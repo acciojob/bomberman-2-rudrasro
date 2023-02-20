@@ -33,13 +33,16 @@ board.forEach(row => {
     })
 });
 boardElement.style.setProperty('--size', BOARD_SIZE);
-minesLeftText.textContent = NUMBER_OF_MINES
+let count = 1;
+let flagList = 0;
+minesLeftText.textContent = flagList
 
 function listMineLeft() {
-    const markedTilesCount = board.reduce((count, row) => {
-        return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length)
-    }, 0);
-    minesLeftText.textContent = NUMBER_OF_MINES - markedTilesCount;
+        const markedTilesCount = board.reduce((count, row) => {
+            return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length)
+        }, 0);
+        minesLeftText.textContent = flagList + markedTilesCount;
+        count = markedTilesCount;
 }
 
 function markTile(tile) {
@@ -54,10 +57,13 @@ function markTile(tile) {
         }
     }
     else {
-        tile.status = TILE_STATUSES.MARKED;
-        tile.element.classList.add('flag');
-        tile.element.textContent = '🚩';
-        tile.element.style.fontSize = '50%';
+        if(count<10){
+            console.log(count)
+            tile.status = TILE_STATUSES.MARKED;
+            tile.element.classList.add('flag');
+            tile.element.textContent = '🚩';
+            tile.element.style.fontSize = '50%';
+        }
     }
 }
 
