@@ -14,6 +14,8 @@ let counter = 0;
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
 const minesLeftText = document.querySelector('#flagsLeft')
 const messageText = document.querySelector('#result');
+const bombs = document.querySelector('#bomb');
+bombs.textContent = NUMBER_OF_MINES;
 board.forEach(row => {
     row.forEach(tile => {
         boardElement.append(tile.element);

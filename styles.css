@@ -18,6 +18,9 @@ body {
     padding: 1.5rem;
     display: none;
 }
+.bomb{
+    font-size: 1.2rem;
+}
 #flagsLeft{
     color: #ccc;
     font-size: 1.5rem;
