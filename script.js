@@ -22,7 +22,7 @@ board.forEach(row => {
         tile.element.id = `${counter++}`;
         tile.element.addEventListener('click', () => {
             revealTile(board, tile);
-            checkGameEnd();
+            // checkGameEnd();
         });
         tile.element.addEventListener('contextmenu', (e) => {
             e.preventDefault();
@@ -66,7 +66,7 @@ function revealTile(board, tile) {
         tile.element.classList.add('bomb');
         const userLose = document.querySelector('.bomb');
         userLose.addEventListener('click', () => {
-            checkLose();
+            checkGameEnd();
         })
         tile.element.textContent = '💣';
         tile.element.style.fontSize = '50%';
