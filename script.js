@@ -83,7 +83,7 @@ function revealTile(board, tile) {
     const mines = adjacentTiles.filter(t => t.mine);
     if (mines.length === 0) {
         adjacentTiles.forEach(revealTile.bind(null, board));
-        tile.element.setAttribute('data', `${mines.length}`);
+        tile.element.setAttribute('data', `${NaN}`);
         tile.element.classList.add('checked');
     }
     else {
