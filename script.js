@@ -16,7 +16,7 @@ const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
 const minesLeftText = document.querySelector('#flagsLeft')
 const messageText = document.querySelector('#result');
 const bombs = document.querySelector('#bomb');
-bombs.textContent = NUMBER_OF_MINES;
+bombs.innerHTML = NUMBER_OF_MINES;
 
 //Settings
 board.forEach(row => {
@@ -39,14 +39,14 @@ board.forEach(row => {
 boardElement.style.setProperty('--size', BOARD_SIZE);
 let count = 1;
 let flagList = 0;
-minesLeftText.textContent = flagList
+minesLeftText.innerHTML = flagList
 
 // Count the mines
 function listMineLeft() {
     const markedTilesCount = board.reduce((count, row) => {
         return (count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length)
     }, 0);
-    minesLeftText.textContent = flagList + markedTilesCount;
+    minesLeftText.innerHTML = flagList + markedTilesCount;
     count = markedTilesCount;
 }
 
@@ -57,7 +57,7 @@ function markTile(tile) {
     }
     if (tile.status === TILE_STATUSES.MARKED) {
         tile.status = TILE_STATUSES.HIDDEN;
-        tile.element.textContent = '';
+        tile.element.innerHTML = '';
         if (tile.element.classList.contains('flag')) {
             tile.element.classList.remove('flag');
         }
@@ -66,7 +66,7 @@ function markTile(tile) {
         if (count < 10) {
             tile.status = TILE_STATUSES.MARKED;
             tile.element.classList.add('flag');
-            tile.element.textContent = '🚩';
+            tile.element.innerHTML = '🚩';
             tile.element.style.fontSize = '50%';
         }
     }
@@ -81,7 +81,7 @@ function revealTile(board, tile) {
         tile.status = TILE_STATUSES.MINE;
         tile.element.classList.add('bomb');
         tile.element.classList.remove('valid');
-        tile.element.textContent = '💣';
+        tile.element.innerHTML = '💣';
         tile.element.style.fontSize = '50%';
         tile.element.classList.add('checked');
         return;
@@ -95,7 +95,7 @@ function revealTile(board, tile) {
         tile.element.classList.add('checked');
     }
     else {
-        tile.element.textContent = mines.length;
+        tile.element.innerHTML = mines.length;
         tile.element.removeAttribute('data');
         tile.element.setAttribute('data', `${mines.length}`);
         tile.element.classList.add('checked');
@@ -183,12 +183,12 @@ function checkGameEnd() {
 
     //If win then display win
     if (win) {
-        messageText.textContent = 'YOU WIN!';
+        messageText.style.display = 'block';
         messageText.style.color = "green";
         board.forEach(row => {
             row.filter(tile => {
                 if (tile.mine) {
-                    tile.element.textContent = '🚩';
+                    tile.element.innerHTML = '🚩';
                 }
             })
         })
@@ -196,7 +196,8 @@ function checkGameEnd() {
 
     //If loose show all the bombs and display you lose
     if (lose) {
-        messageText.textContent = "YOU LOSE!"
+        messageText.style.display = 'block';
+        messageText.innerHTML = "YOU LOSE!"
         messageText.style.color = "red";
 
         board.forEach(row => {
