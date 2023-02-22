@@ -1,65 +1,49 @@
 *{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-body {
-    margin: 0;
-    background-color: #333;
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    flex-direction: column;
-    color: #ffffff;
-}
-.title{
-    margin: 10px;
-}
-#result{
-    font-size: 1.2rem;
-    padding: 1rem;
-    display: none;
-}
-.showBomb{
-    display: flex;
-    font-size: 1.5rem;
-    width: 200px;
-    justify-content: space-between;
-}
 
-#flagsLeft{
-    color: #ccc;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-#gameBoard{
-    display: inline-grid;
-    height: 72vh;
-    padding: 10px;
-    grid-template-columns: repeat(var(--size),30px);
-    grid-template-rows: repeat(var(--size),40px);
-    gap: 4px;
-    background-color: #777;
-}
-#gameBoard>*{
-    width: 100%;
-    height: 100%;
+body{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    color: #ffffff;
-    border: 2px solid #888888;
-    user-select: none;
+    justify-content: center;
+    background-color: black;
 }
-#gameBoard>[data-status="hidden"]{
-    background-color: #888;
+.grid-container {
+    height: 600px;
+    width: 600px;
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    padding: 10px;
+}
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.938);
+    /* background-color: transparent; */
+    border: 1px solid #000000cc;
+    /* padding: 20px; */
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
-#gameBoard>[data-status="mine"]{
-    background-color: red;
+.flex-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
 }
-#gameBoard>[data-status="number"]{
-    background-color: none;
+
+.flex-box >  input,button{
+    margin: 0 10px 0 0;
 }
-#gameBoard>[data-status="marked"]{
-    background-color: #888;
-    color: red;
+#flagsLeft{
+    color: white;
+}
+
+#result{
+    color: white;
 }
